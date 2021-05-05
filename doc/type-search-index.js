@@ -1,0 +1,1 @@
+typeSearchIndex = [{"p":"de.htwberlin.prog1.sose20.zombies.app","l":"Action"},{"l":"All Classes","url":"allclasses-index.html"}]

@@ -1,0 +1,1 @@
+memberSearchIndex = [{"p":"de.htwberlin.prog1.sose20.zombies.app","c":"Action","l":"Action()","url":"%3Cinit%3E()"},{"p":"de.htwberlin.prog1.sose20.zombies.app","c":"Action","l":"main()"}]
