@@ -1,7 +1,5 @@
 package tech.ignitr.character;
 
-import tech.ignitr.character.Victim;
-
 /**
  *
  * @version 1.1
@@ -18,7 +16,7 @@ public class HumanVictim extends Victim{
     /**
      * Methode HumanVictim
      * Beschreibung: Konstruktor der Sonderform HumanVictim der Klasse Victim, legt Parameter des menschlichen Opfers fest
-     * @param Name
+     * @param Name übernimmt den Namen des menschlichen Opfers
      */
     public HumanVictim (String Name) {
         super("Human");//Weitergabe an Konstruktor von Victim
@@ -29,14 +27,14 @@ public class HumanVictim extends Victim{
     //Operationen
     /**
      * Methode flee
-     * Beschreibung: Methode lässt das Opfer einen Fluchtversucht durchführen, mit größerer Erfolgswahrscheinlichkeit als ein normales Opfer
+     * Beschreibung: Methode lässt das Opfer einen Fluchtversuch durchführen, mit größerer Erfolgswahrscheinlichkeit als ein normales Opfer
      */
     public Boolean flee() {
-        if((int)(Math.random() * 5)+ 1<=2) {//40% Chance zur Flucht
+        if((int)(Math.random() * 5)+ 1<=2) {//40 % Chance zur Flucht
             System.out.println("Das Opfer konnte fliehen.");
             return true;//Ausgabe bei gelungener Flucht
         }else {
-            System.out.println("Der Fluchtversucht war nicht erfolgreich!");
+            System.out.println("Der Fluchtversuch war nicht erfolgreich!");
             return false;//Ausgabe bei misslungener Flucht
         }
     }

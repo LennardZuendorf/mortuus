@@ -43,22 +43,22 @@ public class Zombie {
     /**
      * Methode attack
      * Beschreibung: lässt den Zombie einen Angriff auf ein Opfer durchführen
-     * @param Target Übernimmt das Ziel des Angriffes um Verteidigung des Opfers einzuleiten
+     * @param Target Übernimmt das Ziel des Angriffes, um Verteidigung des Opfers einzuleiten
      */
     public void attack (Victim Target) {
         System.out.println("\nDer Zombie "+ this.getName()+" greift an.");
         this.setInFight(true);
-        if((int)(Math.random()*10)+1==1) { //10% Wahrscheinlichkeit für kritischen Schaden
+        if((int)(Math.random()*10)+1==1) { //10 % Wahrscheinlichkeit für kritischen Schaden
             Target.defend((int)(Math.random()*6)*2); //Zufälliger Schaden von (0-5)*2 (da kritisch); Weitergabe des Schadens an das Opfer, das sich verteidigen kann
         } else {
-            Target.defend((int)(Math.random()*6));//Zufälliger Schaden von 0-5, Weitergabe des Schadens an das Opfer, das sich verteidigen kann
+            Target.defend((int)(Math.random()*6));//Zufälliger Schaden von 0 bis 5, Weitergabe des Schadens an das Opfer, das sich verteidigen kann
         }
     }
 
     /**
      * Methode attackHuman
      * Beschreibung: Besondere Methode für den Angriff auf Menschen, da andere Klasse des Ziels, ansonsten ist alles analog zur Methode attack
-     * @param Target Übernimmt das Ziel des Angriffes um Verteidigung des Opfers einzuleiten
+     * @param Target Übernimmt das Ziel des Angriffes, um Verteidigung des Opfers einzuleiten
      */
     public void attackHuman (HumanVictim Target) {
         System.out.println("\nDer Zombie "+ this.getName()+" greift an.");
@@ -74,8 +74,8 @@ public class Zombie {
 
     /**
      * Methode attackHunter
-     * Beschreibung:Besondere Methode für den Angriff auf einen ZombieHunter, da andere Klasse des Ziels, ansonsten ist alles analog zur Methode attack
-     * @param Target Übernimmt das Ziel des Angriffes um Schaden an ZombieHunter weiter zu geben
+     * Beschreibung: Besondere Methode für den Angriff auf einen ZombieHunter, da andere Klasse des Ziels, ansonsten ist alles analog zur Methode attack
+     * @param Target Übernimmt das Ziel des Angriffes, um Schaden an ZombieHunter weiterzugeben
      */
     public void attackHunter (ZombieHunter Target) {
         System.out.println("\nDer Zombie "+ this.getName()+" greift an.");
@@ -91,7 +91,7 @@ public class Zombie {
 
     /**
      * Methode takeDamage
-     * Beschreibung: Verbucht Schaden den der Zombie erlitten hat und prüft ob dieser tödlich ist
+     * Beschreibung: Verbucht Schaden, den der Zombie erlitten hat und prüft ob dieser tödlich ist
      * @param Damage übernimmt Schaden der verbucht werden soll
      */
     public void takeDamage (int Damage) {
@@ -123,7 +123,7 @@ public class Zombie {
      */
     public void dance () {
         System.out.println("\nDer Zombie "+this.getName()+" fängt an zu tanzen!");
-        int Zufall=(int)(Math.random()*5)+1; //Jeweils 20% Wahrscheinlichkeit für jedes Szenario
+        int Zufall=(int)(Math.random()*5)+1; //Jeweils 20 % Wahrscheinlichkeit für jedes Szenario
         if (Zufall==1) {//Szenario 1
             System.out.println(this.getName()+" hat beim Tanzen sein linkes Bein verloren, er muss es wieder einsammeln.\n");
         }else if (Zufall ==2) {//Szenario 2
@@ -185,7 +185,7 @@ public class Zombie {
 
     /**
      * Methode getHunger
-     * Beschreibung: gibt den Hunger des Zombie aus
+     * Beschreibung: gibt den Hunger der Zombie aus
      * @return gibt den Wert des Parameters Hunger aus
      */
     public int getHunger() {
@@ -195,7 +195,7 @@ public class Zombie {
     /**
      * Methode setHunger
      * Beschreibung: legt den Hunger des Zombies fest
-     * @param übernimmt den neuen Hunger-Wert des Zombies
+     * @param Hunger übernimmt den neuen Hunger-Wert des Zombies
      */
     public void setHunger(int Hunger) {
         this.hunger=this.hunger+Hunger;
@@ -229,7 +229,7 @@ public class Zombie {
 
     /**
      * Methode isInFight
-     * Beschreibung: Methode gibt aus ob sich der Zombie im Kampf befindet
+     * Beschreibung: Methode gibt, aus ob sich der Zombie im Kampf befindet
      * @return gibt true oder false aus, je nachdem ob sich der Zombie gerade im Kampf befindet
      */
     public boolean isInFight() {
@@ -238,8 +238,8 @@ public class Zombie {
 
     /**
      * Methode setInFight
-     * Beschreibung: Methode legt fest ob der Zombie sich aktuell in einem Kampf befindet
-     * @param inFight übernimmt ob der Zombie sich aktuell im Kampf befindet (true oder false)
+     * Beschreibung: Methode legt fest, ob der Zombie sich aktuell in einem Kampf befindet
+     * @param inFight übernimmt, ob der Zombie sich aktuell im Kampf befindet (true oder false)
      */
     public void setInFight(boolean inFight) {
         this.inFight = inFight;
@@ -248,7 +248,7 @@ public class Zombie {
     /**
      * Methode setIntelligence
      * Beschreibung: Methode legt fest welche Intelligenz der Zombie hat
-     * @param Intelligence übernimmt den Intelligenz-Wert den der Zombie haben soll
+     * @param Intelligence übernimmt den Intelligenz-Wert, den der Zombie haben soll
      */
     public void setIntelligence(int Intelligence) {
         this.Intelligence = Intelligence;

@@ -11,7 +11,7 @@ public class Main {
 
     public static SuperZombie Alpha = new SuperZombie("1");
     private static Scanner scanner = new Scanner(System.in);
-    static int ZombieCounter=0;
+    public static int ZombieCounter=0;
 
     /**
      * Methode main
@@ -54,7 +54,7 @@ public class Main {
                 if (Alpha.getName()=="1") {	//Kontrolle, ob schon ein SuperZombie erstellt wurde
                     Alpha = new SuperZombie("Cannibal");//Erstellung eines neues SuperZombies
                     System.out.println("Es wurde eine neuer SuperZombie mit dem Namen "+Alpha.getName()+" erstellt.");
-                } else {//Ausgabe falls bereits ein SuperZombie erstellt wurde
+                } else {//Ausgabe, falls bereits ein SuperZombie erstellt wurde
                     System.out.println("\nSie haben bereits einen SuperZombie generiert, Sie können keinen zweiten generieren.");
                 }
                 break;
@@ -70,22 +70,22 @@ public class Main {
                     Zombie Clamper = new Zombie ("Clamper");
                     Alpha.addToGroup(Clamper);
                     System.out.println("Es wurde eine neuer Zombie mit dem Namen "+Clamper.getName()+" erstellt.");
-                    ZombieCounter++;//Erhöhen des ZombieCounters zur Kontrolle ob bereits einmal Anhänger hinzugefügt wurden
-                }else if (ZombieCounter!=0){//Ausgabe falls bereits einmal Anhänger hinzugefügt wurden
+                    ZombieCounter++;//Erhöhen des ZombieCounters zur Kontrolle, ob bereits einmal Anhänger hinzugefügt wurden
+                }else if (ZombieCounter!=0){//Ausgabe, falls bereits einmal Anhänger hinzugefügt wurden
                     System.out.println("\nSie können nur einmal 3 Zombies generieren!");
                 }else {//Ausgabe falls noch kein SuperZombie erstellt wurde
                     System.out.println("\nSie müssen zunächst einen SuperZombie generieren!");
-                }w
+                }
                 break;
             case 3://Ausgabe des Datenblattes des SuperZombies
-                if (Alpha.getName()!="1") {//Kontrolle ob bereits ein SuperZombie erstellt wurde
+                if (Alpha.getName()!="1") {//Kontrolle, ob bereits ein SuperZombie erstellt wurde
                     Alpha.ShowData();//Ausgabe des Datenblattes
-                } else {//Ausgabe wenn noch kein SuperZombie erstellt wurde
+                } else {//Ausgabe, wenn noch kein SuperZombie erstellt wurde
                     System.out.println("\nSie haben noch keinen SuperZombie generiert, bitte generieren sie zuerst einen SuperZombie.");
                 }
                 break;
             case 4://Ausgabe der Datenblätter aller Angänger
-                if (ZombieCounter==1) {//Kontrolle ob bereits Zombie-Anhänger erstellt wurden
+                if (ZombieCounter==1) {//Kontrolle, ob bereits Zombie-Anhänger erstellt wurden
                     System.out.println("\nDie Daten der ZombieGruppe werden ausgegeben.");
                     Alpha.ShowGroupData();//Ausführung der entsprechenden Methode des SuperZombies
                 } else {//Ausgabe falls noch keine Zombie-Anhänger erstellt wurden
@@ -120,5 +120,21 @@ public class Main {
         System.out.print("\nBitte geben Sie die Nummer des gewaehlten Menueeintrags ein:\t");
         int choiceInternal = scanner.nextInt();
         return choiceInternal;
+    }
+
+    public int getZombieCounter() {
+        return ZombieCounter;
+    }
+
+    public void setZombieCounter(int zombieCounter) {
+        ZombieCounter = zombieCounter;
+    }
+
+    public SuperZombie getSuperZombie() {
+        return Alpha;
+    }
+
+    public void setSuperZombie(SuperZombie zombie) {
+        Alpha = zombie;
     }
 }

@@ -42,25 +42,25 @@ public class Victim {
      * @param Damage
      */
     public void defend(int Damage) {
-        if((int)(Math.random()*4)+1==1) {//25% Wahrscheinlichkeit das der Angriff abgewehrt wird
+        if((int)(Math.random()*4)+1==1) {//25 % Wahrscheinlichkeit das der Angriff abgewehrt wird
             System.out.println("Das Opfer konnte den Angriff abwehren.");//falls Abwehr erfolgreich wird kein Schaden verbucht
         } else {
-            this.takeDamage(Damage);//Ausführung der TakeDamage-Operation wenn Angriff nicht abgewehrt werden kann
+            this.takeDamage(Damage);//Ausführung der TakeDamage-Operation, wenn Angriff nicht abgewehrt werden kann
         }
     }
 
     /**
      * Methode takDamage
-     * Beschreibung:Verbucht Schaden den das Opfer zugefügt bekommt, bei tödlichem Schaden wird das Opfer als tod markiert
+     * Beschreibung: Verbucht Schaden, den das Opfer zugefügt bekommt, bei tödlichem Schaden wird das Opfer als tod markiert
      * @param Damage Schadenswert, der von der Funktion defend übergeben wird
      */
     public void takeDamage(int Damage) {
         if (Damage<this.healthPointsCurrent) {//Abzug von Lebenspunkten falls Schaden nicht tödlich
             this.healthPointsCurrent=this.healthPointsCurrent-Damage;
             System.out.println(this.getType()+" hat "+Damage+" Schaden erlitten. "+this.getHealthPointsCurrent()+" Lebenspunkte verbleibend!");
-        } else if (Damage>=this.healthPointsCurrent) {//Abzug von Lebenspunkten wenn Schaden tödlich (da nicht mehr Schaden als Lebenspunkte zugefügt werden kann)
+        } else {//Abzug von Lebenspunkten, wenn Schaden tödlich (da nicht mehr Schaden als Lebenspunkte zugefügt werden kann)
             System.out.println(this.getType()+" hat "+this.healthPointsCurrent+" Schaden erlitten. "+this.getHealthPointsCurrent()+" Lebenspunkte verbleibend!");//Als Schaden werden in diesem Fall maximal die übrigen Lebenspunkte angegeben
-            this.healthPointsCurrent=0;//genauer Schaden wird außer acht gelassen, da Opfer sowieso tod
+            this.healthPointsCurrent=0;//genauer Schaden wird außer Acht gelassen, da Opfer sowieso tod
             this.setAlive(false);//Opfer wird als tod markiert
         }
     }
@@ -68,10 +68,10 @@ public class Victim {
     /**
      * Methode flee
      * Beschreibung: Lässt das Opfer einen Fluchversuch unternehmen
-     * @return gibt das Ergebnis des Fluchversuches aus, also ob dieser Erfolgreich war
+     * @return gibt das Ergebnis des Fluchversuches aus, also ob dieses Erfolgreich war
      */
     public Boolean flee() {
-        if((int)(Math.random()*5)+1==1) {//20% Chance zur Flucht
+        if((int)(Math.random()*5)+1==1) {//20 % Chance zur Flucht
             System.out.println("Das Opfer konnte fliehen!");
             return true;//Ausgabe bei erfolgreichem Fluchtversuch
         }else {
@@ -94,7 +94,7 @@ public class Victim {
     /**
      * Methode setId
      * Beschreibung: legt den Inhalt des Parameters ID fest
-     * @param übernimmt den gewünschten Wert des Parameters ID
+     * @param id übernimmt den gewünschten Wert des Parameters ID
      */
     public void setId(String id) {
         this.id = id;
@@ -102,7 +102,7 @@ public class Victim {
 
     /**
      * Methode getType
-     * Beschreibung: Gibt des Typ des Opfers aus
+     * Beschreibung: Gibt den Typ des Opfers aus
      * @return gibt den Inhalt des Parameters Typ aus
      */
     public String getType() {
@@ -111,7 +111,7 @@ public class Victim {
 
     /**
      * Methode getIntelligence
-     * Beschreibung: Gibt den Intelligence-Wer des Opfer aus
+     * Beschreibung: Gibt den Intelligence-Wer das Opfer aus
      * @return gibt den Inhalt des Parameters Intelligence aus
      */
     public int getIntelligence() {
@@ -129,7 +129,7 @@ public class Victim {
 
     /**
      * Methode getHealthPointsCurrent
-     * Beschreibung:gibt die aktuellen Lebenspunkte des Opfers aus
+     * Beschreibung: gibt die aktuellen Lebenspunkte des Opfers aus
      * @return gibt den Inhalt des Parameters healthPointsCurrent aus (Lebenspunkte)
      */
     public int getHealthPointsCurrent() {
@@ -147,8 +147,8 @@ public class Victim {
 
     /**
      * Methode isAlive
-     * Beschreibung: Gibt aus ob das Opfer am Leben ist
-     * @return gibt true aus wenn das Opfer lebt, false wenn das Opfer nicht mehr lebt
+     * Beschreibung: Gibt, aus ob das Opfer am Leben ist
+     * @return gibt true aus wem das Opfer lebt, false, wenn das Opfer nicht mehr lebt
      */
     public boolean isAlive() {
         return alive;
@@ -156,8 +156,8 @@ public class Victim {
 
     /**
      * Methode setAlive
-     * Beschreibung: legt fest ob das Opferam Leben ist
-     * @param alive übernimmt ob das Opfer noch lebt (true=ja, false=nein)
+     * Beschreibung: legt fest, ob das Opferam Leben ist
+     * @param alive übernimmt, ob das Opfer noch lebt (true=ja, false=nein)
      */
     public void setAlive(boolean alive) {
         this.alive = alive;

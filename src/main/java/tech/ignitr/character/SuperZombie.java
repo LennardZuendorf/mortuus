@@ -1,6 +1,6 @@
 package tech.ignitr.character;
 
-import tech.ignitr.character.Zombie;
+import java.util.Objects;
 
 /**
  *
@@ -20,8 +20,8 @@ public class SuperZombie extends Zombie{
 
     /**
      * Methode SuperZombie
-     * Beschreibung: Konstruktor der Klasse SuperZombie, legt grundlegende Parameter des SuperZombie fest und führt Konstruktor der Zombie Klasse aus
-     * @param Name
+     * Beschreibung: Konstruktor der Klasse SuperZombie, legt grundlegende Parameter des Superzombies fest und führt Konstruktor der Zombie Klasse aus
+     * @param Name übernimmt den Namen des SuperZombies
      */
     public SuperZombie(String Name) {
         super(Name);//Weitergabe an Konstruktor der Zombie-Klasse
@@ -33,13 +33,13 @@ public class SuperZombie extends Zombie{
     /**
      * Methode commandToAttack
      * Beschreibung: Methode befiehlt dem übernommenen Anhänger den Angriff auf das übernommene Ziel und führt eine der attack-Methode des Zombies aus
-     * @param Attacker übernimmt den Zombie Anhänger der Angreifen soll
-     * @param Target übernimmt das Ziel des Angreifer
+     * @param Attacker übernimmt den Zombie Anhänger dem Angreifen soll
+     * @param Target übernimmt das Ziel der Angreifer
      */
     public void commandToAttack (Zombie Attacker, Victim Target) {
-        for (int x=0;x<ZombieGroup.length;x++) {//Auswahl aller Zombies in der Gruppe (der Reihe nach)
-            if (ZombieGroup[x]==Attacker) {//Test ob Array gefüllt ist, um NullPointerException zu verhindern
-                ZombieGroup[x].attack(Target);//Angriffsbefehl
+        for (Zombie zombie : ZombieGroup) {//Auswahl aller Zombies in der Gruppe (der Reihe nach)
+            if (zombie == Attacker) {//Test, ob Array gefüllt ist, um NullPointerException zu verhindern
+                zombie.attack(Target);//Angriffsbefehl
             }
         }
     }
@@ -48,13 +48,13 @@ public class SuperZombie extends Zombie{
      * Methode commandToAttack
      * Beschreibung: Die Methode befiehlt dem übernommenen Anhänger den Angriff auf das übernommene Ziel und führt die attackHuman-Methode des Zombies aus
      * (Die Methode ist analog zur 1. commandToAttack Methode und hat lediglich ein anderes Ziel)
-     * @param Attacker übernimmt den Zombie Anhänger der Angreifen soll
-     * @param Target übernimmt das menschliche Ziel des Angreifer
+     * @param Attacker übernimmt den Zombie Anhänger dem Angreifen soll
+     * @param Target übernimmt das menschliche Ziel der Angreifer
      */
     public void commandToAttack (Zombie Attacker, HumanVictim Target) {//Die Methode ist prinzipiell die gleiche wie commandToAttack-Methode, deshalb keine Kommentare
-        for (int x=0;x<ZombieGroup.length;x++) {
-            if (ZombieGroup[x]==Attacker) {
-                ZombieGroup[x].attack(Target);
+        for (Zombie zombie : ZombieGroup) {
+            if (zombie == Attacker) {
+                zombie.attack(Target);
             }
         }
     }
@@ -76,14 +76,14 @@ public class SuperZombie extends Zombie{
     /**
      * Methode attack
      * Beschreibung: Die Methode übernimmt das Ziel des Angriffes und führt einen Angriff des SuperZombies durch, analog zur attack-Methode der ZombieKlasse (der Schaden ist unterschiedlich)
-     * @param Target Übernimmt das Ziel des Angriffes, um defend-Methode des Ziels auf zu rufen
+     * @param Target Übernimmt das Ziel des Angriffes, um defend-Methode des Ziels aufzurufen
      */
     public void attack (Victim Target) {
         System.out.println("\nDer SuperZombie "+ this.getName()+" greift an.");
-        if((int)(Math.random() * 10)+1==1) { //10% Wahrscheinlichkeit für kritischen Schaden
+        if((int)(Math.random() * 10)+1==1) { //10 % Wahrscheinlichkeit für kritischen Schaden
             Target.defend((int)(Math.random()*1)*2); //Zufälliger Schaden von (0-1)*2 (da kritisch); Weitergabe des Schadens an das Opfer, das sich verteidigen kann
         } else {
-            Target.defend((int)(Math.random()*1)); //Zufälliger Schaden von 0-5, Weitergabe des Schadens an das Opfer, das sich verteidigen kann
+            Target.defend((int)(Math.random()*1)); //Zufälliger Schaden von 0 bis 5, Weitergabe des Schadens an das Opfer, das sich verteidigen kann
         }
     }
 
@@ -91,7 +91,7 @@ public class SuperZombie extends Zombie{
      * Methode attackHuman
      * Beschreibung: Die Methode übernimmt das Ziel des Angriffes und führt einen Angriff des SuperZombies durch, analog zur attack-Methode der ZombieKlasse (der Schaden ist unterschiedlich)
      * (Die Methode ist analog zur 1. attack Methode und hat lediglich ein anderes Ziel)
-     * @param Target Übernimmt das Ziel des Angriffes, um defend-Methode des Ziels auf zu rufen
+     * @param Target Übernimmt das Ziel des Angriffes, um defend-Methode des Ziels aufzurufen
      */
     public void attackHuman (HumanVictim Target) {//Die Methode ist prinzipiell die gleiche wie attack-Methode, deshalb keine Kommentare
         System.out.println("\nDer SuperZombie "+ this.getName()+" greift an.");
@@ -105,11 +105,11 @@ public class SuperZombie extends Zombie{
      * Methode attack
      * Beschreibung: Die Methode übernimmt das Ziel des Angriffes und führt einen Angriff des SuperZombies durch, analog zur attack-Methode der ZombieKlasse (der Schaden ist unterschiedlich)
      * (Die Methode ist analog zur 1. attack Methode und hat lediglich ein anderes Ziel)
-     * @param Target Übernimmt das Ziel des Angriffes, um takeDamage-Methode des Ziels auf zu rufen und Schaden zu "verbuchen"
+     * @param Target Übernimmt das Ziel des Angriffes, um takeDamage-Methode des Ziels aufzurufen und Schaden zu "verbuchen"
      */
     public void attackHunter (ZombieHunter Target) {//Die Methode ist prinzipiell die wie attack-Methode, deshalb keine Kommentare
         System.out.println("\nDer SuperZombie "+ this.getName()+" greift an.");
-        if((int)(Math.random() * ((10 - 0) + 1))==1) {
+        if((int)(Math.random() * ((10) + 1))==1) {
             Target.takeDamage((int)(Math.random()*1)*2);
         } else {
             Target.takeDamage((int)(Math.random() *1));
@@ -122,7 +122,7 @@ public class SuperZombie extends Zombie{
      * @return gibt, aus ob der Fluchtversuch erfolgreich war (true) oder nicht (false)
      */
     public boolean flee () {
-        if((int)(Math.random()*4)+1<=3) {//Wahrscheinlichkeit von 75% das der Fluchversuch erfolgreich ist
+        if((int)(Math.random()*4)+1<=3) {//Wahrscheinlichkeit von 75 % das der Fluchversuch erfolgreich ist
             System.out.println("Der SuperZombie "+this.getName()+" konnte fliehen.");
             return true;//Ausgabe bei erfolgreichem Fluchtversuch
         }else {
@@ -137,7 +137,7 @@ public class SuperZombie extends Zombie{
      */
     public void dance () {
         System.out.println("\nDer SuperZombie "+this.getName()+" fängt an zu tanzen!");
-        int Zufall = (int)(Math.random()*5)+1;//Tanz des SuperZombies, analog zur dance-Methode des Zombies, jedes Szenario hat eine 20% Wahrscheinlichkeit
+        int Zufall = (int)(Math.random()*5)+1;//Tanz des SuperZombies, analog zur dance-Methode des Zombies, jedes Szenario hat eine 20 % Wahrscheinlichkeit
         if (Zufall == 1) {//Szenario 1
             System.out.println(this.getName()+" hat beim Tanzen sein linkes Bein verloren!");
         }else if (Zufall == 2) {//Szenario 2
@@ -149,9 +149,9 @@ public class SuperZombie extends Zombie{
         }else {//Szenario 5
             System.out.println(this.getName()+" zu Single Ladies von Beyoncé getanzt!");
         }
-        for (int i=0;i<ZombieGroup.length;i++){//Tanzen der gesamten Gruppe, Auswahl jedes einzellnen Zombies im Array
-            if(ZombieGroup[i]!=null) {//Überprüfung ob der Wert des Arrays nicht leer ist, um NullPointerException zu Verhindern
-                ZombieGroup[i].dance();//Ausführung der danc-Methode für jeden Zombie
+        for (Zombie zombie : ZombieGroup) {//Tanzen der gesamten Gruppe, Auswahl jedes einzellnen Zombies im Array
+            if (zombie != null) {//Überprüfung, ob der Wert des Arrays nicht leer ist, um NullPointerException zu Verhindern
+                zombie.dance();//Ausführung der danc-Methode für jeden Zombie
             }
         }
     }
@@ -159,18 +159,18 @@ public class SuperZombie extends Zombie{
     /**
      * Methode addToGroup
      * Beschreibung: Die Methode fügt der ZombieGruppe (Array)
-     * @param Member
+     * @param Member Übernimmt den Zombie, der der Gruppe hinzugefügt werden soll
      */
     public void addToGroup (Zombie Member) {
         int c=0;//Kontroll-Variable
         for (int x=0;x<ZombieGroup.length;x++){//Auswahl jedes einzellnen feldes des Arrays
-            if (c==0&&ZombieGroup[x]==null) {//Überprüfung ob das Feld leer ist & ob der Zombie-Anhaänger bereits hinzugefügt wurde (dann wäre c==1)
+            if (c==0&&ZombieGroup[x]==null) {//Überprüfung, ob das Feld leer ist & ob der Zombie-Anhaänger bereits hinzugefügt wurde (dann wäre c==1)
                 ZombieGroup[x]=Member; //hinzufügen des Zombies zur ZombieGroup
                 c++;//Erhöhung der Kontroll-Variable
                 zombiePower++;//Erhöhung der Macht des Zombies (gibt Größe der Gruppe wieder)
             }
         }
-        if (c==0) {//Überprüfung ob tatsächlich ein Zombie hinzugefügt wurde, nach Ablauf der for-Schleife
+        if (c==0) {//Überprüfung, ob tatsächlich ein Zombie hinzugefügt wurde, nach Ablauf der for-Schleife
             System.out.println("Der Zombie konnte nicht hinzugefügt werden, vielleicht ist die Gruppe bereits voll? Ein SuperZombie kann maximal 25 Anhänger haben.");
         }
     }
@@ -178,12 +178,12 @@ public class SuperZombie extends Zombie{
     /**
      * Methode deleteFromGroup
      * Beschreibung: Die Methode entfernt einen Zombie aus dem Array ZombieGroup
-     * @param Member übernimmt den Zombie der aus dem Array entfernt werden soll
+     * @param Member übernimmt den Zombie, der aus dem Array entfernt werden soll
      */
     public void deleteFromGroup (Zombie Member) {
-        for (int x=0;x<ZombieGroup.length;x++) {//Auswahl jedes einzellnen feldes des Arrays
-            if (ZombieGroup[x]!=null) {//Überprüfung ob das Feld leer ist, um NullPointer Exception zu verhindern
-                if (ZombieGroup[x].getName()==Member.getName()) {//Überprüfung ob es sich um den gesuchten Zombie handelt
+        for (int x=0;x<ZombieGroup.length;x++) {//Auswahl jedes einzelnen feldes des Arrays
+            if (ZombieGroup[x]!=null) {//Überprüfung, ob das Feld leer ist, um NullPointer Exception zu verhindern
+                if (Objects.equals(ZombieGroup[x].getName(), Member.getName())) {//Überprüfung, ob es sich um den gesuchten Zombie handelt
                     ZombieGroup[x]=null;//Entfernen des Zombies aus dem Array
                     zombiePower=zombiePower-1;//Verringern der ZombiePower
                     System.out.println("Der Zombie "+Member.getName()+" ist nicht mehr ein Anhänger von "+this.getName()+".");
@@ -197,9 +197,9 @@ public class SuperZombie extends Zombie{
      * Beschreibung: Die Methode gibt die Datenblätter aller Zombies in der ZombieGruppe aus
      */
     public void ShowGroupData() {
-        for (int x=0;x<ZombieGroup.length;x++){//Auswahl jedes einzellnen Feldes des Arrays
-            if (ZombieGroup[x]!=null) {//Überprüfung ob das Feld leer ist, um NullPointer Exception zu verhindern
-                ZombieGroup[x].showData();// Ausführung der Methode showData des jeweiligen Zombies
+        for (Zombie zombie : ZombieGroup) {//Auswahl jedes einzelnen Feldes des Arrays
+            if (zombie != null) {//Überprüfung, ob das Feld leer ist, um NullPointer Exception zu verhindern
+                zombie.showData();// Ausführung der Methode showData des jeweiligen Zombies
             }
         }
     }
@@ -211,10 +211,10 @@ public class SuperZombie extends Zombie{
      */
     public String ShowGroupNames() {
         int c=0;//Kontroll-Variable
-        String GroupNames = new String("");//Ausgabe-String
-        for (int x=0;x<ZombieGroup.length;x++){//Auswahl jedes einzellnen Feldes des Arrays
-            if (ZombieGroup[x]!=null) {//Kontrolle ob das Feld leer ist, um NullPointer Exception zu verhindern
-                GroupNames=GroupNames+ZombieGroup[x].getName()+", ";//Name des Zombies wird zum Ausgabe-String hinzugefügt
+        String GroupNames = "";//Ausgabe-String
+        for (Zombie zombie : ZombieGroup) {//Auswahl jedes einzelnen Feldes des Arrays
+            if (zombie != null) {//Kontrolle, ob das Feld leer ist, um NullPointer Exception zu verhindern
+                GroupNames = GroupNames + zombie.getName() + ", ";//Name des Zombies wird zum Ausgabe-String hinzugefügt
                 c++;//in Kontroll Variable wird vermerkt, dass ein ZombieName zur Gruppe hinzugefügt wurde
             }
         }
@@ -222,7 +222,7 @@ public class SuperZombie extends Zombie{
             GroupNames=GroupNames.substring(0, GroupNames.length()-2);//Löschen der letzten beiden Zeichen des Strings, um letztes Kommata zu löschen
             return GroupNames;//Ausgabe des Ausgabe-Strings
         }else {
-            return "keine Mitglieder";//Ausgabe wenn kein Mitglied in der Gruppe ist
+            return "keine Mitglieder";//Ausgabe, wenn kein Mitglied in der Gruppe ist
         }
     }
 

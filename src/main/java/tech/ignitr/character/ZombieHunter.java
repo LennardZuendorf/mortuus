@@ -1,14 +1,13 @@
 package tech.ignitr.character;
 
 import java.util.UUID;
-import tech.ignitr.character.Zombie;
 
 
 /**
  *
  * @version 1.1
  * @since 01.07.2020 - Abschluss der Entwicklung
- * 05.07.2020 - finaler Checl + Abschluss der Dokumentation
+ * 05.07.2020 - finaler Check + Abschluss der Dokumentation
  * @author Lennard Zündorf, E-Mail: s0568383@htw-berlin.de
  * Beschreibung: Die Klasse ZombieHunter beschreibt einen ZombieHunter als Bestandteil des ZombieSpieles, genauer seine Attribute & Operationen
  */
@@ -42,7 +41,7 @@ public class ZombieHunter {
      * @param Target Übernimmt das Ziel des Angriffes vom Typ Zombie
      */
     public void attack(Zombie Target) {
-        if((int)(Math.random() *2)+1==1) { //Test ob 50% Chance erfüllt, wenn nicht, ist Angriff nicht erfolgreich
+        if((int)(Math.random() *2)+1==1) { //Test ob 50 % Chance erfüllt, wenn nicht, ist Angriff nicht erfolgreich
             System.out.println("Der ZombieHunter "+this.getName()+" hat erfolgreich angegriffen!");
             Target.takeDamage(5);//ZombieHunter macht immer 5 Schaden, wenn erfolgreich, ausführung der takeDamage-Methode des Ziels
         }else {//Ausgabe wenn Angriff nicht erfolgreich
@@ -76,7 +75,7 @@ public class ZombieHunter {
 
     /**
      * Methode flee
-     * Beschreibung: Die Methode gibt lediglich aus, das ein ZombieHunter nicht flieht
+     * Beschreibung: Die Methode gibt lediglich aus, dass ein ZombieHunter nicht flieht
      */
     public void flee() {
         System.out.println("Ein ZombieHunter flieht nicht!");
@@ -84,15 +83,13 @@ public class ZombieHunter {
 
     /**
      * Methode alive
-     * Beschreibung: Die Methode gibt aus ob der ZombieHunter am leben ist (solange er mehr als 0 Lebenspunkte hat)
-     * @return gibt true aus wenn der ZombieHunter lebt und false wenn nicht
+     * Beschreibung: Die Methode gibt aus ob der ZombieHunter am Leben ist (solange er mehr als 0 Lebenspunkte hat)
+     * @return gibt true aus, wenn der ZombieHunter lebt und false, wenn nicht
      */
     public boolean alive() {
-        if (this.healthPointsCurrent>0) {//Überprüfung ob der ZombieHunter mehr als 0 Lebenspunkte hat
-            return true; // Ausgabe wenn der ZombieHunter noch lebt
-        }else {
-            return false;// Ausgabe wenn der ZombieHunter nicht mehr lebt
-        }
+        //Überprüfung ob der ZombieHunter mehr als 0 Lebenspunkte hat
+        // Ausgabe, wenn der ZombieHunter nicht mehr lebt
+        return this.healthPointsCurrent > 0; // Ausgabe, wenn der ZombieHunter noch lebt
     }
 
     //Getter & Setter
@@ -135,7 +132,7 @@ public class ZombieHunter {
 
     /**
      * Methode setExperiencePoints
-     * Beschreibung:Die Methode legt die Erfahrung des ZombieHunter fest
+     * Beschreibung: Die Methode legt die Erfahrung des ZombieHunter fest
      * @param experiencePoints übernimmt den neuen Wert der in den Parameter experiencePoints eingetragen wird
      */
     public void setExperiencePoints(int experiencePoints) {
