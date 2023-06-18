@@ -1,4 +1,4 @@
-package tech.ignitr.character;
+package tech.ignitr.archive.model;
 
 import java.util.UUID;
 

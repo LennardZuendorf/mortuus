@@ -1,6 +1,5 @@
-package tech.ignitr.action;
+package tech.ignitr.archive.action;
 
-import tech.ignitr.Main;
 
 import java.util.Scanner;
 
@@ -61,23 +60,23 @@ public class Foray {
                 int zufall = (int) (Math.random() * 5) + 1;//Wählt zufällig aus, wer tanzen soll, 20 % Wahrscheinlichkeit für jede Option
                 if (zufall == 1) {//Option 1
                     System.out.println("Die gesamte Gruppe fängt an zu tanzen.");
-                    Main.Alpha.dance();//Ausführung der dance-Methode des SuperZombies
-                } else if (zufall == 2 && Main.Alpha.ZombieGroup[0] != null) {//Option 2 (inkl. Kontrolle ob Zombie noch besteht, um NullPointerException zu verhindern)
-                    Main.Alpha.ZombieGroup[0].dance();//1. Anhänger tanzt..
-                } else if (zufall == 3 && Main.Alpha.ZombieGroup[1] != null) {//Option 3 (inkl. Kontrolle ob Zombie noch besteht, um NullPointerException zu verhindern)
-                    Main.Alpha.ZombieGroup[1].dance();//...
-                } else if (zufall == 4 && Main.Alpha.ZombieGroup[2] != null) {//Option 4 (inkl. Kontrolle ob Zombie noch besteht, um NullPointerException zu verhindern)
-                    Main.Alpha.ZombieGroup[2].dance();
-                } else if (zufall == 5 && Main.Alpha != null) {//Option 5 (inkl. Kontrolle ob Zombie noch besteht, um NullPointerException zu verhindern)
-                    Main.Alpha.dance();
+                    App.Alpha.dance();//Ausführung der dance-Methode des SuperZombies
+                } else if (zufall == 2 && App.Alpha.ZombieGroup[0] != null) {//Option 2 (inkl. Kontrolle ob Zombie noch besteht, um NullPointerException zu verhindern)
+                    App.Alpha.ZombieGroup[0].dance();//1. Anhänger tanzt..
+                } else if (zufall == 3 && App.Alpha.ZombieGroup[1] != null) {//Option 3 (inkl. Kontrolle ob Zombie noch besteht, um NullPointerException zu verhindern)
+                    App.Alpha.ZombieGroup[1].dance();//...
+                } else if (zufall == 4 && App.Alpha.ZombieGroup[2] != null) {//Option 4 (inkl. Kontrolle ob Zombie noch besteht, um NullPointerException zu verhindern)
+                    App.Alpha.ZombieGroup[2].dance();
+                } else if (zufall == 5 && App.Alpha != null) {//Option 5 (inkl. Kontrolle ob Zombie noch besteht, um NullPointerException zu verhindern)
+                    App.Alpha.dance();
                 } else {//Auffang-Option, falls es keine Anhänger (mehr) gibt
-                    assert Main.Alpha != null;
-                    Main.Alpha.dance();
+                    assert App.Alpha != null;
+                    App.Alpha.dance();
                 }
             }
             case 3 -> {//Streifzug beendet
                 System.out.println("\n\n====================");
-                Main.main(null);//führt die Klasse ZombiesApp aus, kehrt zum Hauptmenü zurück
+                App.main(null);//führt die Klasse ZombiesApp aus, kehrt zum Hauptmenü zurück
             }
             default -> {//Abfang-Methode bei falscher Eingabe (z.B. falsche Zahl)
                 System.out.println("\nUngueltige Eingabe. Bitte ueberpruefen Sie Ihre Eingabe");

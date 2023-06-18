@@ -1,13 +1,12 @@
-package tech.ignitr.action;
+package tech.ignitr.archive.action;
+
+import tech.ignitr.archive.model.HumanVictim;
+import tech.ignitr.archive.model.SuperZombie;
+import tech.ignitr.archive.model.Victim;
+import tech.ignitr.archive.model.ZombieHunter;
 
 import java.util.Objects;
 import java.util.Scanner;
-
-import tech.ignitr.Main;
-import tech.ignitr.character.HumanVictim;
-import tech.ignitr.character.SuperZombie;
-import tech.ignitr.character.Victim;
-import tech.ignitr.character.ZombieHunter;
 
 /**
  *
@@ -36,7 +35,7 @@ public class Action {
             System.out.println("\n\n====================");
             System.out.println("\nErkundung....\n");
 
-            Main.Alpha.setHunger(Main.Alpha.getHunger()+1);//Erhöhung des Hungers jede Runde
+            App.Alpha.setHunger(App.Alpha.getHunger()+1);//Erhöhung des Hungers jede Runde
             if ((int)(Math.random()*5)+1<4) { //Szenario 1: Zombie trifft Opfer (normaler Typ oder Mensch)
                 MeetVictim();//Erstellung und Auswahl der Art des Opfers
                 AttackVictim();//Angriff auf Opfer
@@ -51,11 +50,11 @@ public class Action {
                     System.out.println("Der ZombieHunter wurde besiegt und sein Gehirn gefressen!\nDie Erkundung wird beendet.");
                     Hunter = new ZombieHunter("");//freigeben des Hunters bei Tod des ZombieHunters
                     Foray.main();
-                }else if (Main.Alpha.isFinallyDead()) {//Aktionen bei Tod des SuperZombies
+                }else if (App.Alpha.isFinallyDead()) {//Aktionen bei Tod des SuperZombies
                     System.out.println("Sie haben verloren und kehren zum Hauptmenü zurück.");
-                    Main.Alpha = new SuperZombie ("1"); //freigeben des SuperZombies
-                    Main.ZombieCounter=0;//Zurücksetzen der Counter auf Standard-Wert
-                    Main.main(null);
+                    App.Alpha = new SuperZombie ("1"); //freigeben des SuperZombies
+                    App.ZombieCounter=0;//Zurücksetzen der Counter auf Standard-Wert
+                    App.main(null);
                 }
             }
         }
@@ -104,7 +103,7 @@ public class Action {
     private static void MeetHunter() {
         ZombieHunter Hunter = new ZombieHunter ("Ballista the Slayer");
         System.out.println("Sie treffen auf einen ZombieHunter. Er greift an!\n");
-        Hunter.attack(Main.Alpha);
+        Hunter.attack(App.Alpha);
 
 
     }
@@ -116,7 +115,7 @@ public class Action {
     private static void AttackVictim() {
         System.out.println("\n=========");
         System.out.println("\nAngriff\n");
-        if (Main.ZombieCounter==0) {//Optionen, wenn keine Anhänger vorhanden sind, sondern nur der SuperZombie
+        if (App.ZombieCounter==0) {//Optionen, wenn keine Anhänger vorhanden sind, sondern nur der SuperZombie
             String[] menuItems = { "", "(1)\t Angriff mit SuperZombie "};
             System.out.println("Das Opfer hat " +Victim.getHealthPointsCurrent()+" Lebenspunkte.\n\nSie können lediglich mit ihrem SuperZombie angreifen, da sie keine Anhänger haben.");
             for (int i = 1; i < menuItems.length; i++) {
@@ -125,12 +124,12 @@ public class Action {
             int choice = readUserInput();
             if (choice == 1) {
                 if (Objects.equals(Victim.getType(), "")) {//Angriff auf menschliches Opfer
-                    Main.Alpha.attackHuman(HumanVictim);
+                    App.Alpha.attackHuman(HumanVictim);
                 } else {//Angriff auf normales Opfer
-                    Main.Alpha.attack(Victim);
+                    App.Alpha.attack(Victim);
                 }
                 if (!Victim.isAlive()) {
-                    Main.Alpha.eat();
+                    App.Alpha.eat();
                 }
             } else {
                 System.out.println("\nUngültige Eingabe. Bitte überprüfen Sie Ihre Eingabe");
@@ -148,7 +147,7 @@ public class Action {
                     //der SuperZombie frisst das Hirn des toten Opfers
                     if (!Objects.equals(Victim.getType(), "")) {//Angriff auf menschliches Opfer
                         while (Victim.isAlive()) { //SuperZombie greift so lange an, wie das Opfer lebt oder nicht geflohen ist
-                            Main.Alpha.attack(Victim);
+                            App.Alpha.attack(Victim);
                             if (Victim.flee()) {//Fluchtversuch des Opfers
                                 Victim = new Victim("");//Victim wird zurückgesetzt - vorgesehener Parameter frei gemacht
                                 System.out.println("\n\n====================");
@@ -157,7 +156,7 @@ public class Action {
                         }
                     } else {//Angriff auf normales Opfer
                         while (HumanVictim.isAlive()) {//SuperZombie greift so lange an, wie das Opfer lebt oder nicht geflohen ist
-                            Main.Alpha.attack(HumanVictim);
+                            App.Alpha.attack(HumanVictim);
                             if (HumanVictim.flee()) {//Fluchtversuch des Opfers (mit höherer Chance, da Mensch)
                                 HumanVictim = new HumanVictim("");//Victim wird zurückgesetzt - vorgesehener Parameter frei gemacht
                                 System.out.println("\n\n====================");
@@ -166,7 +165,7 @@ public class Action {
                         }
                     }
                     if (!Victim.isAlive()) {//Der SuperZombie frisst das Hirn des toten Opfers
-                        Main.Alpha.eat();
+                        App.Alpha.eat();
                     }
                 }
                 case 2 -> {//Angriff mit Zombie anhänger - Auswahlmöglichkeit welcher Anhänger angreifen soll
@@ -175,18 +174,18 @@ public class Action {
                     String Z1 = "";//Strings für besondere Erstellung des Menüs
                     String Z2 = "";
                     String Z3 = "";
-                    if (Main.Alpha.ZombieGroup[0] != null) {//String wird beschrieben je nachdem ob der Zombie noch existent ist
-                        Z1 = "(1)\t Angriff mit " + Main.Alpha.ZombieGroup[0].getName() + " (" + Main.Alpha.ZombieGroup[0].getEnergy() + " Energie)";
+                    if (App.Alpha.ZombieGroup[0] != null) {//String wird beschrieben je nachdem ob der Zombie noch existent ist
+                        Z1 = "(1)\t Angriff mit " + App.Alpha.ZombieGroup[0].getName() + " (" + App.Alpha.ZombieGroup[0].getEnergy() + " Energie)";
                     } else {
                         Z1 = "Zombie bereits final Tod";//Option, falls Zombie bereits tod - auf diese Weise wird keine NullPointerException ausgegeben
                     }
-                    if (Main.Alpha.ZombieGroup[1] != null) {//String wird beschrieben je nachdem ob der Zombie noch existent ist
-                        Z2 = "(2)\t Angriff mit " + Main.Alpha.ZombieGroup[1].getName() + " (" + Main.Alpha.ZombieGroup[1].getEnergy() + " Energie)";
+                    if (App.Alpha.ZombieGroup[1] != null) {//String wird beschrieben je nachdem ob der Zombie noch existent ist
+                        Z2 = "(2)\t Angriff mit " + App.Alpha.ZombieGroup[1].getName() + " (" + App.Alpha.ZombieGroup[1].getEnergy() + " Energie)";
                     } else {
                         Z2 = "Zombie bereits final Tod";//Option, falls Zombie bereits tod - auf diese Weise wird keine NullPointerException ausgegeben
                     }
-                    if (Main.Alpha.ZombieGroup[2] != null) {//String wird beschrieben je nachdem ob der Zombie noch existent ist
-                        Z3 = "(3)\t Angriff mit " + Main.Alpha.ZombieGroup[2].getName() + " (" + Main.Alpha.ZombieGroup[2].getEnergy() + " Energie)";
+                    if (App.Alpha.ZombieGroup[2] != null) {//String wird beschrieben je nachdem ob der Zombie noch existent ist
+                        Z3 = "(3)\t Angriff mit " + App.Alpha.ZombieGroup[2].getName() + " (" + App.Alpha.ZombieGroup[2].getEnergy() + " Energie)";
                     } else {
                         Z3 = "Zombie bereits final Tod";//Option, falls Zombie bereits tod - auf diese Weise wird keine NullPointerException ausgegeben
                     }
@@ -203,10 +202,10 @@ public class Action {
                     int choice2 = readUserInput();
                     switch (choice2) {
                         case 1 -> {    // Angriff durch ersten Anhänger - restliche Befehle sind analog zum Angriff durch einen SuperZombie! Siehe dazu oben.
-                            if (Main.Alpha.ZombieGroup[0] != null) {
+                            if (App.Alpha.ZombieGroup[0] != null) {
                                 if (!Objects.equals(Victim.getType(), "")) {
                                     while (Victim.isAlive()) {
-                                        Main.Alpha.ZombieGroup[0].attack(Victim);
+                                        App.Alpha.ZombieGroup[0].attack(Victim);
                                         if (Victim.flee()) {
                                             Victim = new Victim("");
                                             System.out.println("\n\n====================");
@@ -215,7 +214,7 @@ public class Action {
                                     }
                                 } else {
                                     while (HumanVictim.isAlive()) {
-                                        Main.Alpha.ZombieGroup[0].attack(HumanVictim);
+                                        App.Alpha.ZombieGroup[0].attack(HumanVictim);
                                         if (HumanVictim.flee()) {
                                             HumanVictim = new HumanVictim("");
                                             System.out.println("\n\n====================");
@@ -224,17 +223,17 @@ public class Action {
                                     }
                                 }
                                 if (!Victim.isAlive()) {
-                                    Main.Alpha.eat();
+                                    App.Alpha.eat();
                                 }
                             } else {//Abbruch des Angriffes, falls der Zombie bereits final Tod ist - um NullPointer Exception zu Verhindern
                                 System.out.println("Bitte wählen sie einen Zombie der noch am Leben ist.");
                             }
                         }
                         case 2 -> {// Angriff durch zweiten Anhänger - restliche Befehle sind analog zum Angriff durch einen SuperZombie! Siehe dazu oben.
-                            if (Main.Alpha.ZombieGroup[1] != null) {
+                            if (App.Alpha.ZombieGroup[1] != null) {
                                 if (!Objects.equals(Victim.getType(), "")) {
                                     while (Victim.isAlive()) {
-                                        Main.Alpha.ZombieGroup[1].attack(Victim);
+                                        App.Alpha.ZombieGroup[1].attack(Victim);
                                         if (Victim.flee()) {
                                             Victim = new Victim("");
                                             System.out.println("\n\n====================");
@@ -243,7 +242,7 @@ public class Action {
                                     }
                                 } else {
                                     while (HumanVictim.isAlive()) {
-                                        Main.Alpha.ZombieGroup[1].attack(HumanVictim);
+                                        App.Alpha.ZombieGroup[1].attack(HumanVictim);
                                         if (HumanVictim.flee()) {
                                             HumanVictim = new HumanVictim("");
                                             System.out.println("\n\n====================");
@@ -252,17 +251,17 @@ public class Action {
                                     }
                                 }
                                 if (!Victim.isAlive()) {
-                                    Main.Alpha.eat();
+                                    App.Alpha.eat();
                                 }
                             } else {//Abbruch des Angriffes, falls der Zombie bereits final Tod ist - um NullPointer Exception zu Verhindern
                                 System.out.println("Bitte wählen sie einen Zombie der noch am Leben ist.");
                             }
                         }
                         case 3 -> {// Angriff durch dritten Anhänger - restliche Befehle sind analog zum Angriff durch einen SuperZombie! Siehe dazu oben.
-                            if (Main.Alpha.ZombieGroup[2] != null) {
+                            if (App.Alpha.ZombieGroup[2] != null) {
                                 if (!Objects.equals(Victim.getType(), "")) {
                                     while (Victim.isAlive()) {
-                                        Main.Alpha.ZombieGroup[2].attack(Victim);
+                                        App.Alpha.ZombieGroup[2].attack(Victim);
                                         if (Victim.flee()) {
                                             Victim = new Victim("");
                                             System.out.println("\n\n====================");
@@ -271,7 +270,7 @@ public class Action {
                                     }
                                 } else {
                                     while (HumanVictim.isAlive()) {
-                                        Main.Alpha.ZombieGroup[2].attack(HumanVictim);
+                                        App.Alpha.ZombieGroup[2].attack(HumanVictim);
                                         if (HumanVictim.flee()) {
                                             HumanVictim = new HumanVictim("");
                                             System.out.println("\n\n====================");
@@ -280,7 +279,7 @@ public class Action {
                                     }
                                 }
                                 if (!Victim.isAlive()) {
-                                    Main.Alpha.eat();
+                                    App.Alpha.eat();
                                 }
                             } else {//Abbruch des Angriffes, falls der Zombie bereits final Tod ist - um NullPointer Exception zu Verhindern
                                 System.out.println("Bitte wählen sie einen Zombie der noch am Leben ist.");
@@ -306,10 +305,10 @@ public class Action {
      */
     private static void AttackHunter() {
         int round = 0;//Rundenzähler um Fluchtversuch erst ab Runden 2 zu ermöglichen
-        while (Hunter.alive() && !Main.Alpha.isFinallyDead()) {//Angriff-Dialog wird so lange durchgeführt, ZombieHunter und der SuperZombie leben
+        while (Hunter.alive() && !App.Alpha.isFinallyDead()) {//Angriff-Dialog wird so lange durchgeführt, ZombieHunter und der SuperZombie leben
             System.out.println("\n=========");
             System.out.println("\nAngriff\n");//Auswahl des Angreifenden oder Flucht (ab Runde 2)
-            String[] menuItems = { "","(1)\t Angriff mit SuperZombie ("+Main.Alpha.getEnergy()+" Energie)","(2)\t Angriff mit Anhänger","(3)\t Fluchtversuch (ab Runde 2)"};
+            String[] menuItems = { "","(1)\t Angriff mit SuperZombie ("+App.Alpha.getEnergy()+" Energie)","(2)\t Angriff mit Anhänger","(3)\t Fluchtversuch (ab Runde 2)"};
             round ++;//Rundenzähler erhöht sich pro Runden
             System.out.println("\nSie können mit dem SuperZombie oder einem Anhänger angreifen oder versuchen zu fliehen.\nDer ZombieHunter hat " +Hunter.getHealthPointsCurrent()+" Lebenpunkte.\n");
             for (int i = 1; i < menuItems.length; i++) {
@@ -318,12 +317,12 @@ public class Action {
             int choice = readUserInput();
             switch (choice) {
                 case 1 -> {    //Angriff mit SuperZombie
-                    Main.Alpha.attackHunter(Hunter);
+                    App.Alpha.attackHunter(Hunter);
                     if (!Hunter.alive()) {//SuperZombie isst das Hirn des ZombieHunter, falls dieser Tod ist
-                        Main.Alpha.eat();
+                        App.Alpha.eat();
                     }
                     System.out.println("\nDer ZombieHunter greift ebenfalls an!");
-                    Hunter.attack(Main.Alpha);//ZombieHunter greift automatisch den angreifenden Zombie an
+                    Hunter.attack(App.Alpha);//ZombieHunter greift automatisch den angreifenden Zombie an
                 }
                 //kein Test, ob SuperZombie tod ist, da in oberer While-Schleife getestet und "Freigabe" der Variable in main-Methode
                 case 2 -> {//Angriff mit Anhänger - Auswahl welcher Anhänger angreifen soll unter Verhinderung von NullPointerExceptions bei tod der Zombies
@@ -332,18 +331,18 @@ public class Action {
                     String Z1 = "";//Strings für besondere Erstellung des Menüs
                     String Z2 = "";
                     String Z3 = "";
-                    if (Main.Alpha.ZombieGroup[0] != null) {//String wird beschrieben je nachdem ob der Zombie noch existent ist
-                        Z1 = "(1)\t Angriff mit " + Main.Alpha.ZombieGroup[0].getName() + " (" + Main.Alpha.ZombieGroup[0].getEnergy() + " Energie)";
+                    if (App.Alpha.ZombieGroup[0] != null) {//String wird beschrieben je nachdem ob der Zombie noch existent ist
+                        Z1 = "(1)\t Angriff mit " + App.Alpha.ZombieGroup[0].getName() + " (" + App.Alpha.ZombieGroup[0].getEnergy() + " Energie)";
                     } else {
                         Z1 = "Zombie bereits final Tod";//Option, falls Zombie bereits tod - auf diese Weise wird keine NullPointerException ausgegeben
                     }
-                    if (Main.Alpha.ZombieGroup[1] != null) {//String wird beschrieben je nachdem ob der Zombie noch existent ist
-                        Z2 = "(2)\t Angriff mit " + Main.Alpha.ZombieGroup[1].getName() + " (" + Main.Alpha.ZombieGroup[1].getEnergy() + " Energie)";
+                    if (App.Alpha.ZombieGroup[1] != null) {//String wird beschrieben je nachdem ob der Zombie noch existent ist
+                        Z2 = "(2)\t Angriff mit " + App.Alpha.ZombieGroup[1].getName() + " (" + App.Alpha.ZombieGroup[1].getEnergy() + " Energie)";
                     } else {
                         Z2 = "Zombie bereits final Tod";//Option, falls Zombie bereits tod - auf diese Weise wird keine NullPointerException ausgegeben
                     }
-                    if (Main.Alpha.ZombieGroup[2] != null) {//String wird beschrieben je nachdem ob der Zombie noch existent ist
-                        Z3 = "(3)\t Angriff mit " + Main.Alpha.ZombieGroup[2].getName() + " (" + Main.Alpha.ZombieGroup[2].getEnergy() + " Energie)";
+                    if (App.Alpha.ZombieGroup[2] != null) {//String wird beschrieben je nachdem ob der Zombie noch existent ist
+                        Z3 = "(3)\t Angriff mit " + App.Alpha.ZombieGroup[2].getName() + " (" + App.Alpha.ZombieGroup[2].getEnergy() + " Energie)";
                     } else {
                         Z3 = "Zombie bereits final Tod";//Option, falls Zombie bereits tod - auf diese Weise wird keine NullPointerException ausgegeben
                     }
@@ -355,48 +354,48 @@ public class Action {
                     int choice2 = readUserInput();
                     switch (choice2) {
                         case 1 -> {    //Angriff mit ersten Zombie-Anhänger
-                            if (Main.Alpha.ZombieGroup[0] != null) {//Kontrolle ob Zombie überhaupt lebt
-                                Main.Alpha.ZombieGroup[0].attackHunter(Hunter);//Angriff des Zombies
+                            if (App.Alpha.ZombieGroup[0] != null) {//Kontrolle ob Zombie überhaupt lebt
+                                App.Alpha.ZombieGroup[0].attackHunter(Hunter);//Angriff des Zombies
                                 if (!Hunter.alive()) {//Test ob der ZombieHunter tod ist
-                                    Main.Alpha.eat();
+                                    App.Alpha.eat();
                                     break;
                                 }
                                 System.out.println("\nDer ZombieHunter greift ebenfalls an!");
-                                Hunter.attack(Main.Alpha.ZombieGroup[0]);//automatischer Angriff des ZombieHunters auf angreifenden Zombie
-                                if (Main.Alpha.ZombieGroup[0].isFinallyDead()) {
-                                    Main.Alpha.deleteFromGroup(Main.Alpha.ZombieGroup[0]);
+                                Hunter.attack(App.Alpha.ZombieGroup[0]);//automatischer Angriff des ZombieHunters auf angreifenden Zombie
+                                if (App.Alpha.ZombieGroup[0].isFinallyDead()) {
+                                    App.Alpha.deleteFromGroup(App.Alpha.ZombieGroup[0]);
                                 }
                             } else {//Option, wenn der Zombie bereits final Tod ist um NullPointer Exception zu verhindern
                                 System.out.println("Bitte wählen sie einen Zombie der noch am Leben ist.");
                             }
                         }
                         case 2 -> {//Angriff mit zweitem Zombie-Anhänger, Befehle sind analog zum Angriff des ersten Zombies
-                            if (Main.Alpha.ZombieGroup[1] != null) {
-                                Main.Alpha.ZombieGroup[1].attackHunter(Hunter);
+                            if (App.Alpha.ZombieGroup[1] != null) {
+                                App.Alpha.ZombieGroup[1].attackHunter(Hunter);
                                 if (!Hunter.alive()) {//Test ob der ZombieHunter tod ist
-                                    Main.Alpha.eat();
+                                    App.Alpha.eat();
                                     break;
                                 }
                                 System.out.println("\nDer ZombieHunter greift ebenfalls an!");
-                                Hunter.attack(Main.Alpha.ZombieGroup[1]);
-                                if (Main.Alpha.ZombieGroup[1].isFinallyDead()) {
-                                    Main.Alpha.deleteFromGroup(Main.Alpha.ZombieGroup[1]);
+                                Hunter.attack(App.Alpha.ZombieGroup[1]);
+                                if (App.Alpha.ZombieGroup[1].isFinallyDead()) {
+                                    App.Alpha.deleteFromGroup(App.Alpha.ZombieGroup[1]);
                                 }
                             } else {
                                 System.out.println("Bitte wählen sie einen Zombie der noch am Leben ist.");
                             }
                         }
                         case 3 -> {//Angriff mit drittem Zombie-Anhänger, Befehle sind analog zum Angriff des ersten Zombies
-                            if (Main.Alpha.ZombieGroup[2] != null) {
-                                Main.Alpha.ZombieGroup[2].attackHunter(Hunter);
+                            if (App.Alpha.ZombieGroup[2] != null) {
+                                App.Alpha.ZombieGroup[2].attackHunter(Hunter);
                                 System.out.println("\nDer ZombieHunter greift ebenfalls an!");
-                                Hunter.attack(Main.Alpha.ZombieGroup[2]);
+                                Hunter.attack(App.Alpha.ZombieGroup[2]);
                                 if (!Hunter.alive()) {//Test ob der ZombieHunter tod ist
-                                    Main.Alpha.eat();
+                                    App.Alpha.eat();
                                     break;
                                 }
-                                if (Main.Alpha.ZombieGroup[2].isFinallyDead()) {
-                                    Main.Alpha.deleteFromGroup(Main.Alpha.ZombieGroup[2]);
+                                if (App.Alpha.ZombieGroup[2].isFinallyDead()) {
+                                    App.Alpha.deleteFromGroup(App.Alpha.ZombieGroup[2]);
                                 }
                             } else {
                                 System.out.println("Bitte wählen sie einen Zombie der noch am Leben ist.");
@@ -410,7 +409,7 @@ public class Action {
                 }
                 case 3 -> {//Fluchtversuch
                     if (round > 1) {//Kontrolle, ob bereits Runde 2 erreicht wurde
-                        if (Main.Alpha.flee()) {//Fluchversuch, bei Erfolg rückkehr zum Streifzug-Dialog
+                        if (App.Alpha.flee()) {//Fluchversuch, bei Erfolg rückkehr zum Streifzug-Dialog
                             Foray.main();
                         }
                     } else {
