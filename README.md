@@ -1,19 +1,25 @@
-<h1>mortuus</h1>
-<h4>Simple Java game originally built for Uni, ported to run with Gradle.</h4>
+# mortuus/Zombie Game
 
-<h2> 🏗️ Tech Stack</h2>
+#### Simple Java game originally built for University. Migrated to run with Gradle and Updated to English.
 
-**Languages:** Java
+#### This is a first-semester project and therefore lacks many standard procedures and is no state-of-the-art Java programming.
+
+> ℹ️
+> This is an archive of a project done as part of my studies.
+
+## 🏗️ Tech Stack
+
+**Language:** Java
 
 **Framework & Build Tool:** Gradle
 
-<h2>🗳️ Status</h2>
+## 🗳️ Status
 
 [![Java CI with Gradle](https://github.com/LennardZuendorf/mortuus/actions/workflows/gradle.yml/badge.svg)](https://github.com/LennardZuendorf/mortuus/actions/workflows/gradle.yml)
 
-<h2>👨‍💻 Author and Credits</h2>
+## 👨‍💻 Author and Credits</h2>
 
 Author: [Lennard Zuendorf](https://ignitr.tech/about)
 
-- Project initially build during a course for HTW Berlin's Business Computing Bachelor
+The project was part of a course for HTW Berlin's Business Computing Bachelor Program
 
